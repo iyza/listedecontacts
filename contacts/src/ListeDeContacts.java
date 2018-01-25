@@ -11,6 +11,7 @@ public class ListeDeContacts {
 
         boolean menu = true;
         boolean changeInfo = true;
+        boolean changeRue = true;
         boolean infoValide = false;
         boolean texteDisparait = false;
         boolean texteDisparait2 = false;
@@ -133,26 +134,29 @@ public class ListeDeContacts {
                                     }
                                     if (infoValide) {
                                         adresse.setNumeroDePorte(information);
-                                        texteDisparait = true;
 
                                         // rue
-                                        System.out.println("Quel est le nom de la rue de votre contact?");
-                                        line();
-                                        information = information.toLowerCase();
-                                        for (int i=0;i<information.length();i++) {
-                                            if ((information.charAt(i) < 'a' || information.charAt(i) > 'z') && information.charAt(i) != ' ' && (information.charAt(i) < '0' || information.charAt(i) > '9')) {
-                                                line();
-                                                System.out.println("Vous avez entrez des characters invalides (lettres, chiffres et espaces seulement).");
-                                                line();stop();
-                                                i = 999;
-                                                infoValide = false;
+                                        while (changeRue) {
+                                            System.out.println("Quel est le nom de la rue de votre contact?");
+                                            information = sc.next();
+                                            line();
+                                            information = information.toLowerCase();
+                                            for (int i=0;i<information.length();i++) {
+                                                if ((information.charAt(i) < 'a' || information.charAt(i) > 'z') && information.charAt(i) != ' ' && (information.charAt(i) < '0' || information.charAt(i) > '9')) {
+                                                    line();
+                                                    System.out.println("Vous avez entrez des characters invalides (lettres, chiffres et espaces seulement).");
+                                                    line();stop();
+                                                    i = 999;
+                                                    infoValide = false;
+                                                }
+                                                else {
+                                                    infoValide = true;
+                                                }
                                             }
-                                            else {
-                                                infoValide = true;
+                                            if (infoValide) {
+                                                adresse.setRue(information);
+                                                texteDisparait = true;
                                             }
-                                        }
-                                        if (infoValide) {
-                                            adresse.setRue(information);
                                         }
 
                                     }
