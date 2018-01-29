@@ -260,8 +260,29 @@ public class ListeDeContacts {
                         }
                     }
                     contact[contacts].setAdresse(adresse);
-
-
+                    changeInfo = true;
+                    while (changeInfo) {
+                        System.out.println("Quel est le poste de travail de " + contact[contacts].getPrenom() + " " + contact[contacts].getNom() + "?");
+                        information = sc.next();
+                        for (int i = 0; i < information.length(); i++) {
+                            if ((information.charAt(i) < 'a' || information.charAt(i) > 'z') && information.charAt(i) != '-' && information.charAt(i) != ' ') {
+                                line();
+                                System.out.println("Vous avez entrez des characters invalides (lettres seulement).");
+                                line();
+                                i = 999;
+                                infoValide = false;
+                            } else {
+                                infoValide = true;
+                            }
+                        }
+                        if (infoValide) {
+                            occupation.setPoste(information);
+                            changeInfo = false;
+                        }
+                    }
+                    occupation.setEntreprise(entreprise);
+                    contact[contacts].setOccupation(occupation);
+                    changeInfo = true;
 
                     break;
 
