@@ -12,6 +12,8 @@ public class ListeDeContacts {
         boolean menu = true;
         boolean changeInfo = true;
         boolean changeRue = true;
+        boolean changeProvince = true;
+        boolean changePays = true;
         boolean infoValide = false;
         boolean texteDisparait = false;
         boolean texteDisparait2 = false;
@@ -31,7 +33,7 @@ public class ListeDeContacts {
         System.out.println("====================================");
         System.out.println("BIENVENUE A VOTRE LISTE DE CONTACTS");
         System.out.println("====================================");
-        stop();line();line();line();
+        line();line();line();
 
         System.out.println("Que voulez vous faire?");
 
@@ -39,15 +41,18 @@ public class ListeDeContacts {
             changeInfo = true;
             infoValide = false;
 
-            line();line();stop();
+            line();line();
             System.out.println("Il vous reste " + (20-contacts) + " espaces dans votre liste de contacts.");
             line();
             System.out.println(" 1 - Ajouter un contact");
             System.out.println(" 2 - Modifier un contact");
             System.out.println(" 3 - Afficher les contacts");
             System.out.println(" 4 - Quitter");
+            line();
+            System.out.println("PS : essaie de ne pas utiliser des espaces :)");
+            line();
             choix = sc.nextInt();
-            line();line();stop();
+            line();line();
 
             switch (choix) {
                 case 1 :
@@ -60,10 +65,10 @@ public class ListeDeContacts {
                         line();
                         information = information.toLowerCase();
                         for (int i=0;i<information.length();i++) {
-                            if (information.charAt(i) < 'a' || information.charAt(i) > 'z') {
+                            if ((information.charAt(i) < 'a' || information.charAt(i) > 'z') && information.charAt(i) != '-' && information.charAt(i) != ' ') {
                                 line();
                                 System.out.println("Vous avez entrez des characters invalides (lettres seulement).");
-                                line();stop();
+                                line();
                                 i = 999;
                                 infoValide = false;
                             }
@@ -84,10 +89,10 @@ public class ListeDeContacts {
                         line();
                         information = information.toLowerCase();
                         for (int i=0;i<information.length();i++) {
-                            if (information.charAt(i) < 'a' || information.charAt(i) > 'z') {
+                            if ((information.charAt(i) < 'a' || information.charAt(i) > 'z') && information.charAt(i) != '-' && information.charAt(i) != ' ') {
                                 line();
                                 System.out.println("Vous avez entrez des characters invalides (lettres seulement).");
-                                line();stop();
+                                line();
                                 i = 999;
                                 infoValide = false;
                             }
@@ -113,7 +118,7 @@ public class ListeDeContacts {
                         }
                         System.out.println(" 4 - C'est tout");
                         choix2 = sc.nextInt();
-                        line();stop();
+                        line();
                         switch (choix2) {
                             case 1:
                                 if (!texteDisparait) {
@@ -125,7 +130,6 @@ public class ListeDeContacts {
                                             line();
                                             System.out.println("Vous avez entrez des characters invalides (numberos seulement).");
                                             line();
-                                            stop();
                                             i = 999;
                                             infoValide = false;
                                         } else {
@@ -142,10 +146,10 @@ public class ListeDeContacts {
                                             line();
                                             information = information.toLowerCase();
                                             for (int i=0;i<information.length();i++) {
-                                                if ((information.charAt(i) < 'a' || information.charAt(i) > 'z') && information.charAt(i) != ' ' && (information.charAt(i) < '0' || information.charAt(i) > '9')) {
+                                                if ((information.charAt(i) < 'a' || information.charAt(i) > 'z') && information.charAt(i) != '-' && information.charAt(i) != ' ') {
                                                     line();
                                                     System.out.println("Vous avez entrez des characters invalides (lettres, chiffres et espaces seulement).");
-                                                    line();stop();
+                                                    line();
                                                     i = 999;
                                                     infoValide = false;
                                                 }
@@ -156,6 +160,7 @@ public class ListeDeContacts {
                                             if (infoValide) {
                                                 adresse.setRue(information);
                                                 texteDisparait = true;
+                                                changeRue = false;
                                             }
                                         }
 
@@ -169,11 +174,10 @@ public class ListeDeContacts {
                                     System.out.println("Quel est le numero de l'appartement de " + contact[contacts].getPrenom() + " " + contact[contacts].getNom() + "?");
                                     information = sc.next();
                                     for (int i = 0; i < information.length(); i++) {
-                                        if (information.charAt(i) < '0' || information.charAt(i) > '9') {
+                                        if ((information.charAt(i) < '0' || information.charAt(i) > '9') && information.charAt(i) != '-' && information.charAt(i) != ' ') {
                                             line();
-                                            System.out.println("Vous avez entrez des characters invalides (numberos seulement).");
+                                            System.out.println("Vous avez entrez des characters invalides (numeros seulement).");
                                             line();
-                                            stop();
                                             i = 999;
                                             infoValide = false;
                                         } else {
@@ -187,9 +191,76 @@ public class ListeDeContacts {
                                 }
                                 else System.out.println("Choix invalide.");
                                 break;
+
+                            case 3:
+                                System.out.println("Dans quelle ville se situe votre contact?");
+                                information = sc.next();
+                                for (int i = 0; i < information.length(); i++) {
+                                    if ((information.charAt(i) < 'a' || information.charAt(i) > 'z') && information.charAt(i) != '-' && information.charAt(i) != ' ') {
+                                        line();
+                                        System.out.println("Vous avez entrez des characters invalides (lettres seulement).");
+                                        line();
+                                        i = 999;
+                                        infoValide = false;
+                                    } else {
+                                        infoValide = true;
+                                    }
+                                }
+                                if (infoValide) {
+                                    adresse.setVille(information);
+
+                                    while (changeProvince) {
+                                        System.out.println("Dans quelle province se situe votre contact?");
+                                        information = sc.next();
+                                        for (int i = 0; i < information.length(); i++) {
+                                            if ((information.charAt(i) < 'a' || information.charAt(i) > 'z') && information.charAt(i) != '-' && information.charAt(i) != ' ') {
+                                                line();
+                                                System.out.println("Vous avez entrez des characters invalides (lettres seulement).");
+                                                line();
+                                                i = 999;
+                                                infoValide = false;
+                                            } else {
+                                                infoValide = true;
+                                            }
+                                        }
+                                        if (infoValide) {
+                                            adresse.setProvince(information);
+                                            changeProvince = false;
+
+                                            while (changePays) {
+                                                System.out.println("Dans quelle pays se situe votre contact?");
+                                                information = sc.next();
+                                                for (int i = 0; i < information.length(); i++) {
+                                                    if ((information.charAt(i) < 'a' || information.charAt(i) > 'z') && information.charAt(i) != '-' && information.charAt(i) != ' ') {
+                                                        line();
+                                                        System.out.println("Vous avez entrez des characters invalides (lettres seulement).");
+                                                        line();
+                                                        i = 999;
+                                                        infoValide = false;
+                                                    } else {
+                                                        infoValide = true;
+                                                    }
+                                                }
+                                                if (infoValide) {
+                                                    adresse.setPays(information);
+                                                    changePays = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+
+                            case 4:
+                                changeInfo = false;
+                                break;
+
+                            default:
+                                System.out.println("Choix invalid.");
                         }
                     }
                     contact[contacts].setAdresse(adresse);
+
 
 
                     break;
@@ -202,10 +273,12 @@ public class ListeDeContacts {
 
                 case 3 :
                     System.out.println("Voici la liste de vos contacts :");
-                    stop();line();line();
+                    line();line();
                     for (int i=0;i<(contacts+1);i++) {
                         System.out.println(" " + (contacts+1) + " - " + contact[i].getPrenom() + " " + contact[i].getNom());
-                        shortStop();
+                        System.out.println("Rue et numero de porte : " + contact[i].getAdresse().getRue() + " " + contact[i].getAdresse().getNumeroDePorte());
+                        System.out.println("Apartement : " + contact[i].getAdresse().getAppartement());
+                        System.out.println("Ville, province et pays : " + contact[i].getAdresse().getVille() + ", " + contact[i].getAdresse().getProvince() + ", " + contact[i].getAdresse().getPays());
                     }
 
                     break;
@@ -222,31 +295,8 @@ public class ListeDeContacts {
         }
     }
 
-    private static void shortStop() {
-        try {
-            Thread.sleep(100);
-        }
-        catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
-    private static void stop() {
-        try {
-            Thread.sleep(750);
-        }
-        catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
     private static void line() {
         System.out.println();
-    }
-
-    private static void ouiOuNon() {
-        System.out.println(" 1 - Oui");
-        System.out.println(" 2 - Non");
     }
 
 }
