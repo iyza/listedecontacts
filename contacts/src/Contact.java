@@ -52,5 +52,4 @@ public class Contact {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-
 }
